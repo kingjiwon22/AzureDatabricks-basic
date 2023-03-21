@@ -5,7 +5,7 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ### Python 사용하여 Datalake에 연결하기  
+# MAGIC ### Datalake에 연결하기
 
 # COMMAND ----------
 
@@ -13,7 +13,7 @@
 # MAGIC #### 1. Storage 내 Container에 Mount  
 # MAGIC Azure 서비스 주체와 함께 OAuth 2.0을 사용하여 Azure Databricks에서 Azure Data Lake Storage Gen2에 연결하는 데 필요한 모든 과정을 해보겠습니다.  
 # MAGIC   
-# MAGIC Tip : OAuth는 인터넷 사용자들이 비밀번호를 제공하지 않고 다른 웹사이트 상의 자신들의 정보에 대해 웹사이트나 애플리케이션의 접근 권한을 부여할 수 있는 공통적인 수단으로서 사용되는, 접근 위임을 위한 개방형 표준 프로토콜  
+# MAGIC Tip : OAuth는 인터넷 사용자들이 비밀번호를 제공하지 않고 다른 웹사이트 상의 자신들의 정보에 대해 웹사이트나 애플리케이션의 접근 권한을 부여할 수 있는 공통적인 수단으로서 사용되는 접근 위임을 위한 개방형 표준 프로토콜  
 # MAGIC ex.외부 소셜 계정을 기반으로 간편히 회원가입 및 로그인 할 수 있는 기능에 사용되는 프로토콜이 OAuth 입니다. (카카오로 시작하기, 네이버로 시작하기 등)  
 # MAGIC   
 # MAGIC [[참고] 자습서: Azure Data Lake Storage Gen2에 연결(learn.microsoft)](https://learn.microsoft.com/ko-kr/azure/databricks/getting-started/connect-to-azure-storage)*
@@ -78,6 +78,14 @@ dbutils.fs.help("mount")
 
 # COMMAND ----------
 
+#dbutils.fs.unmount("/mnt/using_oauth")
+
+# COMMAND ----------
+
+dbutils.fs.ls("/mnt/using_oauth")
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC 참고) 스토리지 계정의 엑세스 키를 통해서 바로 컨테이너에 mount하는 방법입니다.  
 # MAGIC *이는 보안에 취약하므로 권장하지 않습니다.* 
@@ -106,7 +114,7 @@ dbutils.fs.mount(
 
 # COMMAND ----------
 
-dbutils.fs.ls('/mnt/fileUpload')
+dbutils.fs.ls('/mnt/using_oauth')
 
 # COMMAND ----------
 
@@ -152,10 +160,6 @@ df.write.format("delta").mode("overwrite").saveAsTable("OrderLines")
 # COMMAND ----------
 
 # MAGIC %md
-
-# COMMAND ----------
-
-# MAGIC %md
 # MAGIC ### JDBC 드라이버 사용하여 SQL Server 쿼리
 # MAGIC Azure Databricks는 JDBC를 사용하여 외부 데이터베이스에 연결할 수 있도록 지원합니다.  
 # MAGIC **`New > Data`** 를 사용하면 SQL Server 뿐 아니라 Postgre, MySQL, MongoDB, kafka 등 다양한 데이터 소스를 Databricks로 데이터를 쉽게 로드할 수 있는 방법을 확인하실 수 있습니다.  
@@ -181,8 +185,13 @@ password = "qwerty7410!"
 # COMMAND ----------
 
 # MAGIC %md
+# MAGIC *해당 SQL Server 데이터베이스 내 데이터 확인해보기*
+
+# COMMAND ----------
+
+# MAGIC %md
 # MAGIC #### 2. 데이터 읽기
-# MAGIC Python으로 Dataframe을 만들고 위에서 정의한 변수를 참조하여 원격으로 SQL Server의 Database(WideWorldImporters) 내 Customers 테이블을 쿼리합니다.
+# MAGIC Python으로 Dataframe을 만들고 위에서 정의한 변수를 참조하여 SQL Server의 Database(WideWorldImporters) 내 Customers 테이블을 쿼리합니다.
 
 # COMMAND ----------
 
