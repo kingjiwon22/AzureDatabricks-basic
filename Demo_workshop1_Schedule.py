@@ -68,5 +68,5 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC #### 실행된 Schedule의 알림 메일 확인하기  
+# MAGIC #### 실행된 Schedule의 알림 메일 확인하기(PPT 참고)
 # MAGIC 실행된 Schedule의 시작, 작업 성공 결과를 E-mail로 확인할 수 있습니다.

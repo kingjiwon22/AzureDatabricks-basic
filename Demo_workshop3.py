@@ -6,7 +6,7 @@
 
 # MAGIC %md
 # MAGIC ### Advanced Delta Lake Features  
-# MAGIC 지금부터는 Databriks Delta Lake 테이블이 제공하는 고유한 기능 중 몇가지를 살펴보겠습니다.  
+# MAGIC 지금부터는 Databricks Delta Lake 테이블이 제공하는 고유한 기능 중 몇가지를 살펴보겠습니다.  
 
 # COMMAND ----------
 
@@ -194,6 +194,12 @@ display(dbutils.fs.ls("dbfs:/user/hive/warehouse/students/_delta_log"))
 
 # MAGIC %sql
 # MAGIC describe history students
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC Data Science & Engineering 데모를 마치겠습니다.  
+# MAGIC 이어서 Databricks SQL 데모를 시작하겠습니다.
 
 # COMMAND ----------
 

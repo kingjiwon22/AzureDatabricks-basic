@@ -11,12 +11,30 @@
 
 # MAGIC %md
 # MAGIC #### 1. Storage 내 Container에 Mount  
-# MAGIC Azure 서비스 주체와 함께 OAuth 2.0을 사용하여 Azure Databricks에서 Azure Data Lake Storage Gen2에 연결하는 데 필요한 모든 과정을 해보겠습니다.  
+# MAGIC Azure 서비스 주체와 함께 OAuth 2.0을 사용하여 Azure Databricks에서 Azure Data Lake Storage Gen2에 연결하는 데 필요한 모든 과정을 진행해보겠습니다.  
 # MAGIC   
-# MAGIC Tip : OAuth는 인터넷 사용자들이 비밀번호를 제공하지 않고 다른 웹사이트 상의 자신들의 정보에 대해 웹사이트나 애플리케이션의 접근 권한을 부여할 수 있는 공통적인 수단으로서 사용되는 접근 위임을 위한 개방형 표준 프로토콜  
+# MAGIC 참고) OAuth는 인터넷 사용자들이 비밀번호를 제공하지 않고 다른 웹사이트 상의 자신들의 정보에 대해 웹사이트나 애플리케이션의 접근 권한을 부여할 수 있는 공통적인 수단으로서 사용되는 접근 위임을 위한 개방형 표준 프로토콜  
 # MAGIC ex.외부 소셜 계정을 기반으로 간편히 회원가입 및 로그인 할 수 있는 기능에 사용되는 프로토콜이 OAuth 입니다. (카카오로 시작하기, 네이버로 시작하기 등)  
 # MAGIC   
-# MAGIC [[참고] 자습서: Azure Data Lake Storage Gen2에 연결(learn.microsoft)](https://learn.microsoft.com/ko-kr/azure/databricks/getting-started/connect-to-azure-storage)*
+# MAGIC [[참고] 자습서: Azure Data Lake Storage Gen2에 연결(learn.microsoft)](https://learn.microsoft.com/ko-kr/azure/databricks/getting-started/connect-to-azure-storage)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC  Databricks 유틸리티 **`dbutils`** 를 사용하면 강력한 작업 조합을 쉽게 수행할 수 있습니다.  
+# MAGIC  유틸리티를 사용하여 개체 스토리지를 효율적으로 사용하고, Notebook을 연결 및 매개 변수화하고, Secret을 사용할 수 있습니다.  
+# MAGIC  **`dbutils`** 는 Notebook 외부에서 지원되지 않습니다.  
+# MAGIC  **`dbutils`** 는 python, R , Scala Notebook에서 사용할 수 있습니다.
+
+# COMMAND ----------
+
+#각 유틸리티에 대한 간단한 설명과 함께 사용 가능한 유틸리티를 나열하려면 Python 또는 Scala에 dbutils.help()를 실행
+dbutils.help()
+
+# COMMAND ----------
+
+##DBFS(Databricks 파일 시스템) 유틸리티에 사용 가능한 명령 중 자세한 예시 및 변수에 대한 정보를 보고 싶다면 help() 안에 해당 명령어를 입력해주고 실행합니다.
+dbutils.fs.help("mount")
 
 # COMMAND ----------
 
@@ -43,8 +61,8 @@ extra_configs = configs)
 
 configs = {"fs.azure.account.auth.type": "OAuth",
        "fs.azure.account.oauth.provider.type": "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider",
-       "fs.azure.account.oauth2.client.id": "0245d618-fb68-450b-bdf7-2072ab0f9667",
-       "fs.azure.account.oauth2.client.secret": "Z~Z8Q~f2eK-tJ5k.if_ULDO_a7wzUizy6StHsdgK",
+       "fs.azure.account.oauth2.client.id": "5b9f2574-57de-4bdb-be44-d0b334d34064",
+       "fs.azure.account.oauth2.client.secret": "76G8Q~2uz4gp9bZsNR-xBIGTeKOb-vuc_1LJ8a4B",
        "fs.azure.account.oauth2.client.endpoint": "https://login.microsoftonline.com/785087ba-1e72-4e7d-b1d1-4a9639137a66/oauth2/token",
        "fs.azure.createRemoteFileSystemDuringInitialization": "true"}
 
@@ -55,34 +73,7 @@ extra_configs = configs)
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC  Databricks 유틸리티 **`dbutils`** 를 사용하면 강력한 작업 조합을 쉽게 수행할 수 있습니다.  
-# MAGIC  유틸리티를 사용하여 개체 스토리지를 효율적으로 사용하고, Notebook을 연결 및 매개 변수화하고, Secret을 사용할 수 있습니다.  
-# MAGIC  **`dbutils`** 는 Notebook 외부에서 지원되지 않습니다.  
-# MAGIC  **`dbutils`** 는 python, R , Scala Notebook에서 사용할 수 있습니다.
-
-# COMMAND ----------
-
-#각 유틸리티에 대한 간단한 설명과 함께 사용 가능한 유틸리티를 나열하려면 Python 또는 Scala에 dbutils.help()를 실행
-dbutils.help()
-
-# COMMAND ----------
-
-#DBFS(Databricks 파일 시스템) 유틸리티에 사용 가능한 명령을 나열합니다.
-dbutils.fs.help()
-
-# COMMAND ----------
-
-#명령 중 자세한 예시 및 변수에 대한 정보를 보고 싶다면 help() 안에 해당 명령어를 입력해주고 실행합니다.
-dbutils.fs.help("mount")
-
-# COMMAND ----------
-
 #dbutils.fs.unmount("/mnt/using_oauth")
-
-# COMMAND ----------
-
-dbutils.fs.ls("/mnt/using_oauth")
 
 # COMMAND ----------
 
@@ -103,7 +94,7 @@ dbutils.fs.mount(
 dbutils.fs.mount(
    source='wasbs://upload@storageadbworkshop.blob.core.windows.net/',
    mount_point = '/mnt/fileUpload',
-   extra_configs = {'fs.azure.account.key.storageadbworkshop.blob.core.windows.net':'VV0KSKOelNlQ/ZWJzWCTsL67Zr2KKjE1d536BOD/kXqI1RIDlqege3/c5wWzxvNnNIxND7R3wDFH+AStYl+kIA=='}
+   extra_configs = {'fs.azure.account.key.storageadbworkshop.blob.core.windows.net':'zTFDDcy1z9DcBxhTAt9q+fahGXUi/A/ZcPJa3c3lEP86W2XBzfi50MSi38djYpRAz3TPJI1YZXKd+AStQ1XKYA=='}
 )
 
 # COMMAND ----------
@@ -125,7 +116,7 @@ dbutils.fs.ls('/mnt/using_oauth')
 # COMMAND ----------
 
 # Dataframe에 담기
-df = spark.read.format('csv').options(header='true', inferschema='true').load('/mnt/fileUpload/OrderLines.csv')
+df = spark.read.format('csv').options(header='true', inferschema='true').load('/mnt/using_oauth/OrderLines.csv')
 
 # COMMAND ----------
 
@@ -162,14 +153,13 @@ df.write.format("delta").mode("overwrite").saveAsTable("OrderLines")
 # MAGIC %md
 # MAGIC ### JDBC 드라이버 사용하여 SQL Server 쿼리
 # MAGIC Azure Databricks는 JDBC를 사용하여 외부 데이터베이스에 연결할 수 있도록 지원합니다.  
-# MAGIC **`New > Data`** 를 사용하면 SQL Server 뿐 아니라 Postgre, MySQL, MongoDB, kafka 등 다양한 데이터 소스를 Databricks로 데이터를 쉽게 로드할 수 있는 방법을 확인하실 수 있습니다.  
-# MAGIC 이번에는 Python, SQL의 예제와 함께 연결을 구성하고 사용하기 위한 기본 구문을 활용해보겠습니다.  
+# MAGIC **`New > Data`** 를 사용하면 SQL Server 뿐 아니라 Postgre, MySQL, MongoDB, kafka 등 다양한 데이터 소스를 Databricks로 데이터를 쉽게 로드할 수 있는 방법을 확인하실 수 있습니다.    
 
 # COMMAND ----------
 
 # MAGIC %md
 # MAGIC #### 1. 연결정보  
-# MAGIC JDBC를 사용하여 데이터를 읽으려면 여러 설정을 구성해야 합니다. 
+# MAGIC JDBC를 사용하여 데이터를 읽으려면 여러 설정을 구성해야 합니다.  
 # MAGIC 각 데이터베이스는 **`<url>`** 에 다른 형식을 사용하시면 됩니다. 자세한 내용은 [링크](https://learn.microsoft.com/ko-kr/azure/databricks/external-data/jdbc)를 참조해주세요.  
 # MAGIC SQL Server 연결을 위해 SQL Server명, 데이터베이스명, 테이블명, SQL Server 사용자 정보를 각 변수에 담습니다. 
 
@@ -177,7 +167,7 @@ df.write.format("delta").mode("overwrite").saveAsTable("OrderLines")
 
 driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
 #url = "jdbc:sqlserver://<Server-Name>:1433;DatabaseName=<Database-Name>"
-url = "jdbc:sqlserver://adbworkshopsvr.database.windows.net:1433;DatabaseName=WideWorldImporters"
+url = "jdbc:sqlserver://svradbworkshop.database.windows.net:1433;DatabaseName=WideWorldImporters"
 table = "Sales.Customers"
 user = "adbadmin"
 password = "qwerty7410!"
@@ -191,7 +181,7 @@ password = "qwerty7410!"
 
 # MAGIC %md
 # MAGIC #### 2. 데이터 읽기
-# MAGIC Python으로 Dataframe을 만들고 위에서 정의한 변수를 참조하여 SQL Server의 Database(WideWorldImporters) 내 Customers 테이블을 쿼리합니다.
+# MAGIC Dataframe을 만들고 위에서 정의한 변수를 참조하여 SQL Server의 Database 내 Customers 테이블을 읽어서 Dataframe 담습니다.
 
 # COMMAND ----------
 
@@ -221,17 +211,7 @@ display(df)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC #### 3. 데이터 쿼리  
-# MAGIC Dataframe에 담긴 데이터 중 CustomerID를 조회해봅니다.
-
-# COMMAND ----------
-
-display(df.select("CustomerID","DeliveryMethodID"))
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC #### 4. 테이블 생성  
+# MAGIC #### 3. 테이블 생성  
 # MAGIC Dataframe을 테이블로 생성해보겠습니다.
 
 # COMMAND ----------
@@ -247,3 +227,9 @@ df.write.format("delta").mode("overwrite").saveAsTable("Customers")
 
 # MAGIC %sql
 # MAGIC select * from Customers
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC 두번째 시나리오 데모는 여기까지입니다.  
+# MAGIC 이제  Databricks Delta Lake에서 제공하는 고유한 특징들을 살펴보겠습니다.
