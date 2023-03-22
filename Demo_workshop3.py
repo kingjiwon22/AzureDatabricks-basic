@@ -1,17 +1,12 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # Demo 3
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ### Advanced Delta Lake Features  
+# MAGIC ## Advanced Delta Lake Features  
 # MAGIC 지금부터는 Databricks Delta Lake 테이블이 제공하는 고유한 기능 중 몇가지를 살펴보겠습니다.  
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ##### 1. 테이블 생성 후 데이터 작업
+# MAGIC #### 1. 테이블 생성 후 데이터 작업
 # MAGIC 우선 데모를 위해서  테이블 생성과 데이터 잡업을 진행하겠습니다.  
 # MAGIC 
 # MAGIC 제일 먼저 Students 테이블을 생성합니다.  
