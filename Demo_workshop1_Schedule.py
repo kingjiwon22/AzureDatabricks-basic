@@ -40,7 +40,7 @@
 # MAGIC       , current_date `스케쥴최종수행일`
 # MAGIC from    emp e 
 # MAGIC inner join dept d on e.DeptId = d.DeptId
-# MAGIC inner join project p on e.empid = p.LastEditedBy
+# MAGIC left outer join project p on e.empid = p.LastEditedBy
 # MAGIC group by e.EmpId
 # MAGIC order by e.EmpId
 
