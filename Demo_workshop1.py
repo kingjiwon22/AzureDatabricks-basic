@@ -101,12 +101,12 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC 이제 Python의 Random 모듈 내 Sample 함수를 통해 무작위 데이터를 20건 생성하고,  
+# MAGIC 이제 Python의 Random 모듈 내 Sample 함수를 통해 무작위 데이터를 10건 생성하고,  
 # MAGIC 실행할 쿼리문을 *query_all* 이라는 변수에 담아서 출력한 후, 이를 spark.sql을 통해 실행하겠습니다.  
 
 # COMMAND ----------
 
-#Project에 데이터 insert (총 20건, 약 50sec)
+#Project에 데이터 insert 
 import random
 from datetime import datetime
 
@@ -118,7 +118,7 @@ i =1
 
 today = datetime.today().strftime('%Y-%m-%d')
 
-while i <= 20  :
+while i <= 10  :
     smplCode1 = random.sample(smpl1,7)
     projCode = ''.join(smplCode1)
     
