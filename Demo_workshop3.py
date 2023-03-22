@@ -12,14 +12,15 @@
 
 # MAGIC %md
 # MAGIC ##### 1. 테이블 생성 후 데이터 작업
-# MAGIC 우선 데모를 위해서  테이블 생성과 데이터 적재 잡업을 진행하겠습니다.  
+# MAGIC 우선 데모를 위해서  테이블 생성과 데이터 잡업을 진행하겠습니다.  
+# MAGIC 
 # MAGIC 제일 먼저 Students 테이블을 생성합니다.  
 # MAGIC 그 후 한 건씩 데이터를 총 3번 넣어줍니다.  
 # MAGIC 그리고 3건의 데이터를 한번에 넣어줍니다.  
 # MAGIC 이름이 T로 시작하는 학생들의 value 값에 1을 더하여 update 해줍니다.  
 # MAGIC 그 후 value 가 6보다 큰 값인 데이터는 삭제합니다.  
 # MAGIC updates라는 임시 뷰를 생성해줍니다.  
-# MAGIC 위에 만든 Students 테이블과 updates 임시 뷰를 merge하여 type이 update인 경우는 students테이블의 id를 update하고, delete인 경우에는 해당 id를 가진 데이터를 삭제하고, 
+# MAGIC 위에 만든 Students 테이블과 updates 임시 뷰를 merge하여 Students 테이블의 데이터를 변경해줍니다.
 
 # COMMAND ----------
 
@@ -199,8 +200,4 @@ display(dbutils.fs.ls("dbfs:/user/hive/warehouse/students/_delta_log"))
 
 # MAGIC %md
 # MAGIC Data Science & Engineering 데모를 마치겠습니다.  
-# MAGIC 이어서 Databricks SQL 데모를 시작하겠습니다.
-
-# COMMAND ----------
-
-
+# MAGIC 이어서 Databricks SQL 시작하겠습니다.
