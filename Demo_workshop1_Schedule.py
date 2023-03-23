@@ -56,7 +56,7 @@
 # MAGIC %md
 # MAGIC #### Schedule 등록하기  
 # MAGIC 우측 상단의 **`Schedule`** 버튼을 클릭합니다.  
-# MAGIC 작업명, 스케쥴 주기 설정, 작업할 Cluster, 변수 설정, 그리고 시작/결과 알람을 E-mail로 받아볼 수 있는 설정이 가능합니다.  
+# MAGIC Job name, Source, Schedule, Cluster, Parameters, Alerts 설정이 가능합니다.  
 # MAGIC **`Create`** 버튼을 클릭하면 해당 노트북에 작업이 예약됩니다. 
 
 # COMMAND ----------

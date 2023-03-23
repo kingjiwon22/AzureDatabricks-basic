@@ -7,7 +7,7 @@
 
 # MAGIC %md
 # MAGIC #### 1. 테이블 생성 후 데이터 작업
-# MAGIC 우선 데모를 위해서  테이블 생성과 데이터 잡업을 진행하겠습니다.  
+# MAGIC 데모를 위해서  테이블 생성과 데이터 잡업을 진행하겠습니다.  
 # MAGIC 
 # MAGIC 제일 먼저 Students 테이블을 생성합니다.  
 # MAGIC 그 후 한 건씩 데이터를 총 3번 넣어줍니다.  
@@ -15,7 +15,7 @@
 # MAGIC 이름이 T로 시작하는 학생들의 value 값에 1을 더하여 update 해줍니다.  
 # MAGIC 그 후 value 가 6보다 큰 값인 데이터는 삭제합니다.  
 # MAGIC updates라는 임시 뷰를 생성해줍니다.  
-# MAGIC 위에 만든 Students 테이블과 updates 임시 뷰를 merge하여 Students 테이블의 데이터를 변경해줍니다.
+# MAGIC 위에 만든 Students 테이블과 updates 임시 뷰를 merge하여 Students 테이블의 데이터를 변경해줍니다.   
 
 # COMMAND ----------
 
@@ -59,7 +59,7 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC 생성한 테이블 students의 데이터를 확인해보겠습니다.
+# MAGIC 테이블 students의 데이터를 확인해보겠습니다.
 
 # COMMAND ----------
 
@@ -106,12 +106,16 @@ display(dbutils.fs.ls("dbfs:/user/hive/warehouse/students"))
 
 # MAGIC %md
 # MAGIC delta_log 하위 파일들도 확인해보겠습니다.  
-# MAGIC 각각의 트랜잭션 로그들은 이렇게 버전별 json 파일로 저장됩니다.  
-# MAGIC 여기서는 총 8개의 트랜잭션 로그 파일을 볼 수 있습니다. (버전은 0부터 시작합니다.)
 
 # COMMAND ----------
 
 display(dbutils.fs.ls("dbfs:/user/hive/warehouse/students/_delta_log"))
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC 각각의 트랜잭션 로그들은 이렇게 버전별 json 파일로 저장됩니다.  
+# MAGIC 여기서는 총 8개의 트랜잭션 로그 파일을 볼 수 있습니다. (버전은 0부터 시작합니다.)
 
 # COMMAND ----------
 
@@ -184,7 +188,7 @@ display(dbutils.fs.ls("dbfs:/user/hive/warehouse/students/_delta_log"))
 
 # MAGIC %md 
 # MAGIC 
-# MAGIC 테이블 히스토리를 조회(DESCRIBE HISTORY)해 보면 <a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/delta-restore.html" target="_blank">RESTORE</a> 명령이 트랜잭션으로 기록됨을 볼 수 있습니다.
+# MAGIC 테이블 히스토리를 조회(DESCRIBE HISTORY)해 보면 방금 수행한 <a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/delta-restore.html" target="_blank">RESTORE</a> 명령이 트랜잭션으로 기록되었음을 볼 수 있습니다.
 
 # COMMAND ----------
 
