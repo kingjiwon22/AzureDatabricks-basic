@@ -175,13 +175,13 @@ password = "qwerty7410!"
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC *해당 SQL Server 데이터베이스 내 데이터 확인해보기*
+# MAGIC *원본 데이터를 SSMS에서 직접 확인해보기*
 
 # COMMAND ----------
 
 # MAGIC %md
 # MAGIC #### 2. 데이터 읽기
-# MAGIC Dataframe을 만들고 위에서 정의한 변수를 참조하여 SQL Server의 Database 내 Customers 테이블을 읽어서 Dataframe 담습니다.
+# MAGIC 위에서 정의한 변수를 참조하여 SQL Server의 Database 내 Customers 테이블을 읽어서 Dataframe 담습니다.
 
 # COMMAND ----------
 

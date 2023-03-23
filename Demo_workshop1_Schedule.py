@@ -54,6 +54,11 @@
 # COMMAND ----------
 
 # MAGIC %md
+# MAGIC 위의 일련의 작업들을 하나의 Job으로 등록하여 주기적으로 수행되도록 해보겠습니다.
+
+# COMMAND ----------
+
+# MAGIC %md
 # MAGIC #### Schedule 등록하기  
 # MAGIC 우측 상단의 **`Schedule`** 버튼을 클릭합니다.  
 # MAGIC Job name, Source, Schedule, Cluster, Parameters, Alerts 설정이 가능합니다.  

@@ -55,7 +55,8 @@
 # MAGIC %md
 # MAGIC #### 1. Table 생성  
 # MAGIC SQL로 테이블을 생성하기 위해 셀의 우측에서 사용언어를 SQL로 선택합니다.  
-# MAGIC 이제 Create Table문으로 Project 테이블과 EmpDetail 테이블을 생성하겠습니다.
+# MAGIC 이제 Create Table문으로 Project 테이블과 EmpDetail 테이블을 생성하겠습니다.  
+# MAGIC 참고) 한글 컬럼명 작성 시, **`역따옴표(Backtick)`** 을 사용합니다.
 
 # COMMAND ----------
 
