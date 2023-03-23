@@ -167,7 +167,7 @@ while i <= 10  :
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC Project, Emp, Dept 테이블을 Join하여 EmpDetail에 넣어줄 데이터를 조회해보겠습니다.
+# MAGIC Project, Emp, Dept 테이블을 Join하여 EmpDetail에 넣어줄 데이터를 다음과 같이 구성해보았습니다.
 
 # COMMAND ----------
 
